@@ -1,4 +1,4 @@
-var vue = new Vue({
+var app = new Vue({
     el: '#app',
     data: {
         playerHealth: 100,
@@ -6,7 +6,8 @@ var vue = new Vue({
         gameIsRunning: false,
         specialAttackCount: 1,
         logs: [],
-        playerName: ''
+        playerName: '',
+        errorMessage: ''
     },
     methods: {
         startGame: function() {
@@ -29,6 +30,7 @@ var vue = new Vue({
         },
         attack: function() {
             if(!this.checkWin()) {
+                this.errorMessage = '';
                 this.playerAttack();
                 this.monsterAttack();
             }
@@ -38,7 +40,9 @@ var vue = new Vue({
            return Math.floor(Math.random() * (max - min) + min)
         },
         heal: function() {
+
             if(this.playerHealth <= 90 && (this.playerHealth > 0 && this.monsterHealth > 0)) {
+                this.errorMessage = '';
                 this.playerHealth += 10;
                 this.monsterAttack();
                 this.logs.unshift({'player': true, 'text': 'Player used heal'});
@@ -46,11 +50,13 @@ var vue = new Vue({
             }
         },
         playerAttack: function() {
+            this.errorMessage = '';
             let damage = this.calculateDamage(3,10);
             this.monsterHealth -= damage;
             this.logs.unshift({'player': true, 'text': 'Player hits monster, damage: ', 'damage': damage});
         },
         monsterAttack: function() {
+            this.errorMessage = '';
             let damage = this.calculateDamage(5,11);
             this.playerHealth -= damage;
             this.logs.unshift({'player': false, 'text': 'Monster attacks, damage:', 'damage': damage});
@@ -66,7 +72,7 @@ var vue = new Vue({
 
                 this.monsterAttack();
             } else {
-                alert(`You don't have any attack left.`)
+                this.errorMessage = `You don't have any attack left.`;
             }
             
         },

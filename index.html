@@ -60,6 +60,7 @@
             <section v-else>
                 <div class="columns">
                     <div class="column has-text-centered">
+                        <div v-if="errorMessage !== ''" class="error">{{ errorMessage }}</div>
                         <button class="button is-danger is-medium" @click="attack">Attack</button>
                         <button class="button is-warning is-medium" @click="specialAttack">Special attack
                             ({{ specialAttackCount}})</button>
@@ -70,10 +71,7 @@
             </section>
         </div>
 
-        
-
-
-        <div class="content"  v-if="logs.length > 0">
+        <div class="content" v-if="logs.length > 0">
             <section>
                 <div class="columns">
                     <div class="column is-centered has-text-centered">
@@ -95,5 +93,4 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="src/app.js"></script>
 </body>
-
 </html>
