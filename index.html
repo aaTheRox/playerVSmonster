@@ -18,7 +18,7 @@
                         <h3 class="title">Welcome, please choose your nickname...</h3>
                         <form @submit.prevent="startGame">
                             <div class="field">
-                                <input type="text" id="playerName" v-model="playerName" class="input" @submit="saveNickname" placeholder="Enter your nickname...">
+                                <input type="text" id="playerName" v-model="playerName" class="input" placeholder="Enter your nickname...">
                             </div>
                         </form>
                     </div>
@@ -51,6 +51,7 @@
                 <div class="columns">
                     <div class="column has-text-centered">
                         <div class="field">
+                            <div v-if="errorMessage !== ''" class="error">{{ errorMessage }}</div>
                             <button class="button is-success is-medium" @click="startGame()">Start game</button>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                     <div class="column has-text-centered">
                         <div v-if="errorMessage !== ''" class="error">{{ errorMessage }}</div>
                         <button class="button is-danger is-medium" @click="attack">Attack</button>
-                        <button class="button is-warning is-medium" @click="specialAttack">Special attack
+                        <button :disabled="specialAttackCount==0" class="button is-warning is-medium" @click="specialAttack">Special attack
                             ({{ specialAttackCount}})</button>
                         <button :disabled="playerHealth > 90" class="button is-info is-medium" @click="heal">Heal</button>
                         <button class="button is-button is-medium" @click="giveUp">Give up!</button>

@@ -6,12 +6,20 @@ var app = new Vue({
         gameIsRunning: false,
         specialAttackCount: 1,
         logs: [],
-        playerName: '',
-        errorMessage: ''
+        playerName: 'efff',
+        errorMessage: '', 
+    },
+
+    watch: {
+         playerHealth(newVal, old) {
+            this.checkWin();
+            
+        }
     },
     methods: {
         startGame: function() {
             if(this.playerName !=='') {
+                this.errorMessage = '';
                 this.gameIsRunning = true;
                 this.logs = [];
             }
@@ -23,17 +31,21 @@ var app = new Vue({
             this.gameIsRunning = true;
             this.resetData();
         },
+        resetData: function () {
+            this.playerHealth = 100;
+            this.monsterHealth = 100;
+            this.specialAttackCount = 1;
+            this.logs = [];
+        },
         giveUp: function () {
             this.gameIsRunning = false;
             this.playerName = '';
             this.resetData();
         },
         attack: function() {
-            if(!this.checkWin()) {
-                this.errorMessage = '';
-                this.playerAttack();
-                this.monsterAttack();
-            }
+            this.errorMessage = '';
+            this.playerAttack();
+            this.monsterAttack();
 
         },
         calculateDamage: function(min, max) {
@@ -54,12 +66,17 @@ var app = new Vue({
             let damage = this.calculateDamage(3,10);
             this.monsterHealth -= damage;
             this.logs.unshift({'player': true, 'text': 'Player hits monster, damage: ', 'damage': damage});
+            
         },
         monsterAttack: function() {
             this.errorMessage = '';
             let damage = this.calculateDamage(5,11);
             this.playerHealth -= damage;
             this.logs.unshift({'player': false, 'text': 'Monster attacks, damage:', 'damage': damage});
+
+            if(this.playerHealth < 0) {
+                this.playerHealth = 0;
+            }
         },
         specialAttack: function() {
             if(this.specialAttackCount != 0) {
@@ -83,35 +100,15 @@ var app = new Vue({
             if(this.playerHealth <= 0) {
                 this.resetData();
                 this.gameIsRunning = false;
-                if(confirm("You lost! Wanna play again?")) {
-                        this.restartGame();
-                        return true;
-                    } 
+                this.errorMessage = "You lost! Wanna play again?";
                 }
             else if(this.monsterHealth <= 0) {
-                if(confirm("Well done you have won! Wanna play again?")) {
-                    this.restartGame();
-                    return true;
-                }
-
-                if(this.playerHealth < 0) {
-                    this.playerHealth = 0;
-                }
-
                 this.resetData();
-                
+                this.gameIsRunning = false;
+                this.errorMessage = "Well done you have won! Wanna play again?";
             }
             return false;
-        },
-
-        saveNickname: function() {
-            alert('saved')
-        },
-        resetData: function () {
-            this.playerHealth = 100;
-            this.monsterHealth = 100;
-            this.specialAttackCount = 1;
-            this.logs = [];
         }
+       
     }
 });
