@@ -5,41 +5,7 @@
     <title>player VS monster: the best game ever</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-    <style>
-        body {
-            background: #ddd;
-        }
-
-        .content {
-            background: #fff;
-            padding: 5px;
-            width: 100%;
-        }
-
-        .health {
-            color: #fff;
-            font-size: 12px;
-            height: 20px;
-            line-height: 20px;
-            width: 100%;
-            background: #ff3c3c;
-            border: 2px solid #e93b3b;
-            -webkit-transition: width .6s ease-in-out;
-            -moz-transition: width .6s ease-in-out;
-            -o-transition: width .6s ease-in-out;
-            transition: width .6s ease-in-out;
-        }
-
-        .mtop {
-            margin-top: 50px;
-        }
-        .game-controls {
-            position: fixed;
-            width: 100%;
-            height: 60px;
-            bottom: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="src/css/main.css">
 </head>
 
 <body>
@@ -54,8 +20,8 @@
                             <div class="field">
                                 <input type="text" id="playerName" v-model="playerName" class="input" @submit="saveNickname" placeholder="Enter your nickname...">
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
             </div>
         <div class="columns" v-else>
             <div class="column has-text-centered">
