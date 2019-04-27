@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>player VS monster: the best game ever</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+    <style>
+        body {
+            background: #ddd;
+        }
+
+        .content {
+            background: #fff;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .health {
+            color: #fff;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            width: 100%;
+            background: #ff3c3c;
+            border: 2px solid #e93b3b;
+            -webkit-transition: width .6s ease-in-out;
+            -moz-transition: width .6s ease-in-out;
+            -o-transition: width .6s ease-in-out;
+            transition: width .6s ease-in-out;
+        }
+
+        .mtop {
+            margin-top: 50px;
+        }
+        .game-controls {
+            position: fixed;
+            width: 100%;
+            height: 60px;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container mtop">
+
+        <div class="content">
+
+            <div class="columns is-centered" v-if="!gameIsRunning">
+                    <div class="column is-half has-text-centered">
+                        <h3 class="title">Welcome, please choose your nickname...</h3>
+                        <form @submit.prevent="startGame">
+                            <div class="field">
+                                <input type="text" id="playerName" v-model="playerName" class="input" @submit="saveNickname" placeholder="Enter your nickname...">
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        <div class="columns" v-else>
+            <div class="column has-text-centered">
+                <h2 class="title">{{playerName}}</h2>
+                <div class="health" :style="{width: playerHealth + '%'}">
+                    {{ playerHealth }}
+                </div>
+                <img src="src/images/player.jpg" width="190" alt="">
+            </div>
+            <div class="column is-1 has-text-centered">
+                <h1 class="title has-text-success">VS</h1>
+            </div>
+            <div class="column has-text-centered">
+                <h2 class="title">Monster</h2>
+                <div class="health" :style="{width: monsterHealth + '%'}">
+                    {{ monsterHealth }}
+                </div>
+                <img src="src/images/monster.jpg" width="190" alt="">
+            </div>
+
+            <hr>
+            
+        </div>
+
+<hr>
+        <section v-if="!gameIsRunning">
+                <div class="columns">
+                    <div class="column has-text-centered">
+                        <div class="field">
+                            <button class="button is-success is-medium" @click="startGame()">Start game</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section v-else>
+                <div class="columns">
+                    <div class="column has-text-centered">
+                        <button class="button is-danger is-medium" @click="attack">Attack</button>
+                        <button class="button is-warning is-medium" @click="specialAttack">Special attack
+                            ({{ specialAttackCount}})</button>
+                        <button :disabled="playerHealth > 90" class="button is-info is-medium" @click="heal">Heal</button>
+                        <button class="button is-button is-medium" @click="giveUp">Give up!</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        
+
+
+        <div class="content"  v-if="logs.length > 0">
+            <section>
+                <div class="columns">
+                    <div class="column is-centered has-text-centered">
+                        <h4 class="title">Fight logs:</h4>
+                        <div class="is-block" v-for="log in logs"
+                            :class="[log.player ? 'tag is-success' : 'tag is-danger']">{{ log.text}}
+                            <strong>{{ log.damage}}</strong></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="has-text-centered">
+            <p>made by TheRox - 2019</p>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="src/app.js"></script>
+</body>
+
+</html>
