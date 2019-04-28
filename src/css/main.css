@@ -37,3 +37,11 @@ body {
   width: 36%;
   margin: 20px auto;
 }
+.character-move {
+  position: absolute;
+  right: 324px;
+}
+.monster-move {
+  position: absolute;
+  left: 318px;
+}

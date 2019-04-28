@@ -9,45 +9,45 @@
 </head>
 
 <body>
-    <div id="app" class="container mtop">
+    <div ref="player" id="app" class="container mtop">
 
         <div class="content">
 
             <div class="columns is-centered" v-if="!gameIsRunning">
-                    <div class="column is-half has-text-centered">
-                        <h3 class="title">Welcome, please choose your nickname...</h3>
-                        <form @submit.prevent="startGame">
-                            <div class="field">
-                                <input type="text" id="playerName" v-model="playerName" class="input" placeholder="Enter your nickname...">
-                            </div>
-                        </form>
+                <div class="column is-half has-text-centered">
+                    <h3 class="title">Welcome, please choose your nickname...</h3>
+                    <form @submit.prevent="startGame">
+                        <div class="field">
+                            <input type="text" id="playerName" v-model="playerName" class="input" placeholder="Enter your nickname...">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="columns" v-else>
+                <div class="column has-text-centered">
+                    <h2 class="title">{{playerName}}</h2>
+                    <div class="health" :style="{width: playerHealth + '%'}">
+                        {{ playerHealth }}
                     </div>
-            </div>
-        <div class="columns" v-else>
-            <div class="column has-text-centered">
-                <h2 class="title">{{playerName}}</h2>
-                <div class="health" :style="{width: playerHealth + '%'}">
-                    {{ playerHealth }}
+                    <my-character></my-character>
                 </div>
-                <img src="src/images/player.jpg" width="190" alt="">
-            </div>
-            <div class="column is-1 has-text-centered">
-                <h1 class="title has-text-success">VS</h1>
-            </div>
-            <div class="column has-text-centered">
-                <h2 class="title">Monster</h2>
-                <div class="health" :style="{width: monsterHealth + '%'}">
-                    {{ monsterHealth }}
+                <div class="column is-1 has-text-centered">
+                    <h1 class="title has-text-success">VS</h1>
                 </div>
-                <img src="src/images/monster.jpg" width="190" alt="">
+                <div class="column has-text-centered">
+                    <h2 class="title">Monster</h2>
+                    <div class="health" :style="{width: monsterHealth + '%'}">
+                        {{ monsterHealth }}
+                    </div>
+                    <img id="monster" src="src/images/monster.png" width="190" alt="">
+                </div>
+
+                <hr>
+
             </div>
 
             <hr>
-            
-        </div>
-
-<hr>
-        <section v-if="!gameIsRunning">
+            <section v-if="!gameIsRunning">
                 <div class="columns">
                     <div class="column has-text-centered">
                         <div class="field">
@@ -60,9 +60,10 @@
 
             <section v-else>
                 <div class="columns">
+                    {{ isAttacking }}
                     <div class="column has-text-centered">
                         <div v-if="errorMessage !== ''" class="error">{{ errorMessage }}</div>
-                        <button class="button is-danger is-medium" @click="attack">Attack</button>
+                        <button :disabled="isAttacking" class="button is-danger is-medium" @click="attack">Attack</button>
                         <button :disabled="specialAttackCount==0" class="button is-warning is-medium" @click="specialAttack">Special attack
                             ({{ specialAttackCount}})</button>
                         <button :disabled="playerHealth > 90" class="button is-info is-medium" @click="heal">Heal</button>
@@ -77,8 +78,7 @@
                 <div class="columns">
                     <div class="column is-centered has-text-centered">
                         <h4 class="title">Fight logs:</h4>
-                        <div class="is-block" v-for="log in logs"
-                            :class="[log.player ? 'tag is-success' : 'tag is-danger']">{{ log.text}}
+                        <div class="is-block" v-for="log in logs" :class="[log.player ? 'tag is-success' : 'tag is-danger']">{{ log.text}}
                             <strong>{{ log.damage}}</strong></div>
                     </div>
                 </div>
@@ -90,8 +90,11 @@
         </footer>
 
     </div>
+    <scrip src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
+        </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="src/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="src/app.js"></script>
 </body>
+
 </html>
