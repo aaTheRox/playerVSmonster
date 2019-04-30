@@ -15,7 +15,7 @@ var app = new Vue({
         specialAttackCount: 1,
         isAttacking: false,
         logs: [],
-        playerName: 'efff',
+        playerName: '',
         errorMessage: '',
     },
 
@@ -25,9 +25,7 @@ var app = new Vue({
         playerHealth(newVal, old) {
             this.checkWin();
 
-        },
-        isAttacking(newVal, old) {
-            this.animateCharacter();
+
         }
     },
     methods: {
@@ -60,6 +58,7 @@ var app = new Vue({
             this.errorMessage = '';
             this.playerAttack();
             this.monsterAttack();
+            this.animateCharacter();
         },
         calculateDamage: function(min, max) {
             return Math.floor(Math.random() * (max - min) + min)
@@ -86,7 +85,6 @@ var app = new Vue({
 
             setTimeout(function() {
                 document.getElementById('monster').className = '';
-                this.isAttacking = false;
                 console.log(this.isAttacking)
                 console.log('disabling attack');
             }, 900);
@@ -96,11 +94,7 @@ var app = new Vue({
             let damage = this.calculateDamage(3, 10);
             this.monsterHealth -= damage;
             this.logs.unshift({ 'player': true, 'text': 'Player hits monster, damage: ', 'damage': damage });
-            this.isAttacking = true;
 
-            setTimeout(function() {
-                this.isAttacking = false;
-            }, 900);
         },
         monsterAttack: function() {
             this.errorMessage = '';
@@ -120,6 +114,7 @@ var app = new Vue({
 
                 let log = { 'player': true, 'text': 'Player uses special attack, damage:', 'damage': damage };
                 this.addLog(log);
+                this.animateCharacter();
 
                 this.monsterAttack();
             } else {

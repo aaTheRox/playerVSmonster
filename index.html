@@ -60,7 +60,6 @@
 
             <section v-else>
                 <div class="columns">
-                    {{ isAttacking }}
                     <div class="column has-text-centered">
                         <div v-if="errorMessage !== ''" class="error">{{ errorMessage }}</div>
                         <button :disabled="isAttacking" class="button is-danger is-medium" @click="attack">Attack</button>
@@ -93,7 +92,7 @@
     <scrip src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="src/vue.js"></script>
         <script src="src/app.js"></script>
 </body>
 

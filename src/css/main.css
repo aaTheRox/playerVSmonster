@@ -21,7 +21,7 @@ body {
   transition: width 0.6s ease-in-out;
 }
 .mtop {
-  margin-top: 50px;
+  padding-top: 50px;
 }
 .game-controls {
   position: fixed;
