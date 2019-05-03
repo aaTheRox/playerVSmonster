@@ -1,5 +1,7 @@
 <template>
-    <ChooseCharacter image="./assets/logo.png" />
+<div>
+    <ChooseCharacter  />
+    </div>
 </template>
 
 <script>
