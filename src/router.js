@@ -27,5 +27,8 @@ export default new Router({
             name: 'choose-character',
             component: ChooseCharacter,
         },
+        // 404
+        { path: '/404', component: NotFound },
+        { path: '*', redirect: '/404' },
     ]
 })
