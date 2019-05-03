@@ -33,9 +33,6 @@ export default {
     startGame
   },
   computed: {
-    playerName() {
-      return this.$store.state.playerName;
-    },
     playerName: {
       set(newValue) {
         return this.$store.commit("UPDATE_PNAME", newValue);

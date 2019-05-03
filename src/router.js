@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import About from './views/About.vue'
 import FormNickname from './views/FormNickname.vue'
+import ChooseCharacter from './views/ChooseCharacter.vue'
 import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
@@ -15,25 +17,15 @@ export default new Router({
             component: Home,
             FormNickname
         },
-        { path: '/404', component: NotFound },
-        { path: '*', redirect: '/404' },
         {
             path: '/about',
             name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-                import ( /* webpackChunkName: "about" */ './views/About.vue')
+            component: About,
         },
         {
-            path: '/test',
-            name: 'test',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-                import ( /* webpackChunkName: "about" */ './views/Test.vue')
+            path: '/choose-character',
+            name: 'choose-character',
+            component: ChooseCharacter,
         },
     ]
 })
