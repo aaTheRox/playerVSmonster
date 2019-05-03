@@ -1,4 +1,6 @@
 <template>
+<section v-if="isGameRunning">
+
   <div class="columns is-centered">
     <div class="column is-half has-text-centered">
       <h3 class="title">Welcome, please choose your nickname...</h3>
@@ -14,6 +16,8 @@
       </form>
     </div>
   </div>
+</section>
+
 </template>
 
 <script>
