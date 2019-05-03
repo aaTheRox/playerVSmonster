@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <FormNickName></FormNickName>
-    <startGame></startGame>
   </div>
 </template>
 

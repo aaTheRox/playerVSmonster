@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit magnam eaque ipsam sint quis architecto praesentium nam numquam, fugit deserunt libero eos soluta exercitationem doloremque distinctio. Iusto numquam sit hic!</p>
   </div>
 </template>

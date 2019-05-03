@@ -1,39 +1,54 @@
 <template>
-<section v-if="isGameRunning">
+  <section>
+    <div class="columns is-centered">
+      <div class="column is-half has-text-centered">
+        <h3 class="title">Welcome, please choose your nickname...</h3>
+        <form @submit.prevent="submitForm">
+          <div class="field">
+            <input
+              type="text"
+              class="input"
+              v-model="playerName"
+              placeholder="Enter your nickname..."
+            >
+          </div>
+          <div class="field has-text-danger">
+          {{ this.$store.error }}
+          </div>
+        <startGame></startGame>
 
-  <div class="columns is-centered">
-    <div class="column is-half has-text-centered">
-      <h3 class="title">Welcome, please choose your nickname...</h3>
-      <form @submit.prevent="setNickName">
-        <div class="field">
-          <input
-            type="text"
-            id="playerName"
-            v-model="playerName"
-            class="input"
-            placeholder="Enter your nickname..." >
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
-</section>
-
+  </section>
 </template>
 
 <script>
+import startGame from '@/components/startGame.vue'
+
+import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: "FormNickName",
-  
- data: function () {
-    return {
-      playerName: ''
+  components: {
+    startGame
+  },
+  computed: {
+    playerName() {
+      return this.$store.state.playerName;
+    },
+    playerName: {
+      set(newValue) {
+        return this.$store.commit("UPDATE_PNAME", newValue);
+      },
+      get() {
+        return this.$store.state.playerName;
+      }
     }
   },
 
   methods: {
-    setNickName: function() {
-      console.log(this.playerName)
+    submitForm() {
+      console.log('form submit')
     }
   }
 };
